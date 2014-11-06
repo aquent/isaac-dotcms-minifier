@@ -1,0 +1,47 @@
+apply plugin: 'osgi'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-eclipse'
+
+sourceCompatibility = '1.7'
+version = '0.1'
+
+repositories {
+	maven { url "http://repo.dotcms.com/artifactory/libs-release" }
+}
+
+dependencies {
+	compile('com.yahoo.platform.yui:yuicompressor:2.4.7')
+	compile('com.google.javascript:closure-compiler:v20130411')
+	compile('commons-io:commons-io:2.0.1')
+	compile('com.dotcms:dotcms:2.5.3') { transitive = true }
+	provided('javax.servlet:servlet-api:2.5')
+}
+
+buildscript {
+	repositories {
+		maven { url 'http://repo.spring.io/plugins-release' }
+	}
+	dependencies {
+		classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+	}
+}
+
+jar {
+	manifest {
+		name = 'ISAAC Minifier'
+		symbolicName = 'nl.isaac.dotcms.minifier'
+		instruction 'Bundle-Vendor', 'isaac'
+		instruction 'Bundle-Description', 'ISAAC Minifier Plugin'
+		instruction 'Bundle-DocURL', 'http://geekyplugins.com/dot-cms/minifier.dot'
+		instruction 'Bundle-Activator', 'nl.isaac.dotcms.minify.osgi.MinifierActivator'
+		instruction 'Import-Package', 
+			'!com.google.javascript.*',
+			'!com.yahoo.*',
+			'!org.springframework.*', 
+			'*;version=0'
+		instruction 'Export-Package', 'nl.isaac.dotcms.minify.viewtool'
+	}
+} 
