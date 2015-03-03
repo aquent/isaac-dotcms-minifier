@@ -1,12 +1,11 @@
 apply plugin: 'osgi'
-apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'propdeps'
 apply plugin: 'propdeps-maven'
 apply plugin: 'propdeps-eclipse'
 
 sourceCompatibility = '1.7'
-version = '0.1'
+version = '0.1.0'
 
 repositories {
 	maven { url "http://repo.dotcms.com/artifactory/libs-release" }
